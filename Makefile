@@ -7,13 +7,15 @@ INCLUDES = includes
 all: $(NAME)
 
 $(OBJS):
-	@gcc -c $(SRCS) -I$(INCLUDES)
+	@gcc -c $(SRCS) -I$(INCLUDES) -I./minilibx_macos
 
 $(NAME): $(OBJS)
-	@gcc $(OBJS) -o $(NAME) -lmlx -framework OpenGL -framework AppKit -framework OpenCL
+	make -C minilibx_macos
+	@gcc $(OBJS) -o $(NAME) -L./minilibx_macos -lmlx -framework OpenGL -framework AppKit -framework OpenCL
 
 clean:
 	@rm -f $(OBJS)
+	make -C minilibx_macos clean
 
 fclean: clean
 	@rm -f $(NAME)
